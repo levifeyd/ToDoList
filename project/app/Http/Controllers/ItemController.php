@@ -22,12 +22,11 @@ class ItemController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            "name"=>'required|string|max:255',
+            "name"=>'required|string|max:255'
         ]);
         $input = $request->all();
-        $input['cover'] = str_replace("public/covers", "", $request->file("cover")->store("public/covers"));
         Item::query()->create($input);
-        return redirect()->back()->with('status','Список добавлена!');
+        return response('ok',200);
     }
     public function show($id)
     {
@@ -52,10 +51,10 @@ class ItemController extends Controller
     public function update($id, Request $request) {
         $request->validate([
             "name"=>'string|max:255',
-            "image"=>'string|max:255',
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
         $input = $request->all();
-        $input['cover'] = str_replace("public/covers", "", $request->file("cover")->store("public/covers"));
+        $input['image'] = str_replace("public/images", "", $request->file("image")->store("public/images"));
 
         $item = Item::query()->findOrFail($id);
         $item->update($input);
