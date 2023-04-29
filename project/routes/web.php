@@ -33,6 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::get('create-item', [\App\Http\Controllers\ItemController::class, 'create'])->name('create-item');
     Route::post('store-item', [\App\Http\Controllers\ItemController::class, 'store'])->name('store-item');
     Route::get('edit-item/{id}', [\App\Http\Controllers\ItemController::class, 'edit'])->name('edit-item');
-    Route::put('update-item/{id}', [\App\Http\Controllers\ItemController::class, 'update'])->name('update-items');
+    Route::put('update-item/{id}', [\App\Http\Controllers\ItemController::class, 'update'])->name('update-item');
 });
 require __DIR__.'/auth.php';

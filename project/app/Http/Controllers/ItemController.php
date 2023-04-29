@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
@@ -50,14 +51,28 @@ class ItemController extends Controller
     }
     public function update($id, Request $request) {
         $request->validate([
-            "name"=>'string|max:255',
-            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            "name"=>'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
+//        $item = Item::query()->findOrFail($id);
         $input = $request->all();
-        $input['image'] = str_replace("public/images", "", $request->file("image")->store("public/images"));
 
-        $item = Item::query()->findOrFail($id);
-        $item->update($input);
+        if (isset($input['image']) && !isset($input['name'])) {
+            $input['image'] = str_replace("public/images", "", $request->file("image")->store("public/images"));
+            Item::query()->where('id', $id)->update(['image' => $input['image']]);
+        } else if(!isset($input['image']) && isset($input['name'])) {
+            Item::query()->where('id', $id)->update(['name' => $input['name']]);
+        } else if(isset($input['image']) && isset($input['name'])){
+            Item::query()->where('id', $id)->update($input);
+        } else {
+            redirect()->back()->with('status','Данные списка не изменены!');
+        }
         return redirect()->back()->with('status','Данные списка изменены!');
+    }
+    public function delete($id) {
+        $item = Item::query()->findOrFail($id);
+        Storage::disk('public')->delete('images'.$item->image);
+        $item->update(['image', null]);
+        return redirect()->route('dashboard')->with('status','Картинка удалена!');
     }
 }
