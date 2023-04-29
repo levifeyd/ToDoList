@@ -52,9 +52,8 @@ class ItemController extends Controller
     public function update($id, Request $request) {
         $request->validate([
             "name"=>'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'image' => 'nullable|image|max:2048',
         ]);
-//        $item = Item::query()->findOrFail($id);
         $input = $request->all();
 
         if (isset($input['image']) && !isset($input['name'])) {
@@ -72,7 +71,7 @@ class ItemController extends Controller
     public function delete($id) {
         $item = Item::query()->findOrFail($id);
         Storage::disk('public')->delete('images'.$item->image);
-        $item->update(['image', null]);
+        Item::query()->where('id', $id)->update(['image'=> null]);
         return redirect()->route('dashboard')->with('status','Картинка удалена!');
     }
 }

@@ -27,6 +27,7 @@
                     <input name="image" type="file" class="w-full h-12" placeholder="Пожалуйста загрузите картинку для списка" />
                     <button type="submit" class="btn btn-primary mt-4" style="background-color: green">Отправить</button>
                 </form>
+                    <a href="{{ route('delete-items-image', $item->id) }}" class="btn btn-danger mb-4 mt-6">Удалить картинку в списке</a>
             </div>
         </div>
     </div>
