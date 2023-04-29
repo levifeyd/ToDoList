@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lists_tags', function (Blueprint $table) {
-            $table->foreignId('lists_id')->constrained('lists', 'id')
+        Schema::create('items_tags', function (Blueprint $table) {
+            $table->foreignId('items_id')->constrained('items', 'id')
                 ->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('tag_id')->constrained('tags', 'id')
                 ->cascadeOnUpdate()->cascadeOnDelete();
