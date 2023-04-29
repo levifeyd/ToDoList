@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image');
-            $table->foreignId('tag_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('image')->nullable();
+            $table->foreignId('tag_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
