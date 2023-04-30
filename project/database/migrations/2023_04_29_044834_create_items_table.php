@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image')->nullable();
+            $table->foreignId('to_do_list_id')->nullable()
+                ->constrained('to_do_lists', 'id')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
