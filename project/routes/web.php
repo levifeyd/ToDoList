@@ -27,9 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
     Route::get('dashboard', [\App\Http\Controllers\ItemController::class, 'index'])->name('dashboard');
-//    Route::get('show-item/{id}', [\App\Http\Controllers\ItemController::class, 'show'])->name('show-item');
+
     Route::get('create-item', [\App\Http\Controllers\ItemController::class, 'create'])->name('create-item');
     Route::post('store-item', [\App\Http\Controllers\ItemController::class, 'store'])->name('store-item');
     Route::get('edit-item/{id}', [\App\Http\Controllers\ItemController::class, 'edit'])->name('edit-item');

@@ -1,4 +1,5 @@
 <x-app-layout>
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs@1.0.1/dest/cjs/index.min.js"></script>
     <h1 style="text-align: center; font-size: large; margin-top: 10px">Пожалуйста заполните поля для списка "{{$item->name}}"</h1>
     <div class="container mt-18">
         <div class="row">
@@ -22,9 +23,13 @@
                     @csrf
                     <div class="form-group">
                         <label for="exampleInputEmail">Введите название книги</label>
-                        <input name="name" type="text" class="form-control" id="exampleInputEmail" placeholder="{{$item->title}}">
+                        <input name="name" type="text" class="form-control" id="name" placeholder="{{$item->name}}">
                     </div>
-                    <input name="image" type="file" class="w-full h-12" placeholder="Пожалуйста загрузите картинку для списка" />
+                    <input name="image" type="file" id="image" class="w-full h-12" placeholder="Пожалуйста загрузите картинку для списка" />
+                    <div class="col-md-12 mb-2">
+                        <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                             alt="preview image" style="height: 150px; width: 150px">
+                    </div>
                     <button type="submit" class="btn btn-primary mt-4" style="background-color: green">Отправить</button>
                 </form>
                     <a href="{{ route('delete-items-image', $item->id) }}" class="btn btn-danger mb-4 mt-6">Удалить картинку в списке</a>
@@ -32,3 +37,14 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+    $(document).ready(function (e) {
+        $('#image').change(function(){
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#preview-image-before-upload').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        });
+    });
+</script>

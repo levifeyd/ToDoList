@@ -12,14 +12,11 @@ class ItemController extends Controller
 {
     public function index() {
         $items = Item::all();
-//        $tags = Tag::all();
         return view('dashboard',[
             'items'=>$items,
-//            'tag' =>$tags
         ]);
     }
     public function create() {
-//        $tags = Tag::all();
         return view('items.create');
     }
 
@@ -31,24 +28,11 @@ class ItemController extends Controller
         Item::query()->create($input);
         return response('ok',200);
     }
-//    public function show($id)
-//    {
-//        $item = Item::query()->findOrFail($id);
-//        $tagsIds = DB::table('items_tags')->where('item_id', $id)
-//            ->pluck('tag_id')->toArray();
-//        $tags = Tag::query()->whereIn('id', $tagsIds)->get();
-//        return view('items.show',[
-//            'item'=>$item,
-//            'tags'=>$tags
-//        ]);
-//    }
 
     public function edit($id) {
         $item = Item::query()->findOrFail($id);
-//        $tags = Tag::all();
         return view("items.edit",[
             "item"=>$item,
-//            "tags"=>$tags
         ]);
     }
     public function update($id, Request $request) {
@@ -80,7 +64,7 @@ class ItemController extends Controller
         $input['image'] = str_replace("public/images", "", $request->file("image")->store("public/images"));
         return $input['image'];
     }
-    public function delete($id): \Illuminate\Http\RedirectResponse
+    public function delete($id)
     {
         $item = Item::query()->findOrFail($id);
         Storage::disk('public')->delete('images'.$item->image);
