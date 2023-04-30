@@ -25,12 +25,14 @@
                                     @if(isset($item->image))
                                     <div style="margin-left: 20px">
                                         <a>Картинка списка : </a>
-                                        <img src="/storage/images/{{$item->image}}" width="100">
+                                        <img src="/storage/images/{{$item->image}}" width="150" height="150">
                                     </div>
                                      @endif
+                                    @if(Auth::user()->hasRole('editor'))
                                     <div class="card-body">
                                         <a href="{{route('edit-item', $item->id)}}" class="btn btn-primary">Редактировать список</a>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

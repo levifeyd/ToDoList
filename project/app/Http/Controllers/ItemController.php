@@ -57,18 +57,29 @@ class ItemController extends Controller
         $input = $request->all();
 
         if (isset($input['image']) && !isset($input['name'])) {
-            $input['image'] = str_replace("public/images", "", $request->file("image")->store("public/images"));
+             $input['image'] = $this->changeAndDownloadImage($id, $request, $input);
             Item::query()->where('id', $id)->update(['image' => $input['image']]);
         } else if(!isset($input['image']) && isset($input['name'])) {
             Item::query()->where('id', $id)->update(['name' => $input['name']]);
         } else if(isset($input['image']) && isset($input['name'])){
-            Item::query()->where('id', $id)->update($input);
+            $input['image'] = $this->changeAndDownloadImage($id, $request, $input);
+            Item::query()->where('id', $id)->update([
+                'name' => $input['name'],
+                'image' => $input['image']
+            ]);
         } else {
             redirect()->back()->with('status','Данные списка не изменены!');
         }
         return redirect()->back()->with('status','Данные списка изменены!');
     }
-    public function delete($id) {
+    private function changeAndDownloadImage($id, $request, $input) {
+        $item = Item::query()->findOrFail($id);
+        Storage::disk('public')->delete('images'.$item->image);
+        $input['image'] = str_replace("public/images", "", $request->file("image")->store("public/images"));
+        return $input['image'];
+    }
+    public function delete($id): \Illuminate\Http\RedirectResponse
+    {
         $item = Item::query()->findOrFail($id);
         Storage::disk('public')->delete('images'.$item->image);
         Item::query()->where('id', $id)->update(['image'=> null]);
