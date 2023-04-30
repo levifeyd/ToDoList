@@ -27,10 +27,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('dashboard', [\App\Http\Controllers\ItemController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [\App\Http\Controllers\ToDoListController::class, 'index'])->name('dashboard');
 
-    Route::get('create-item', [\App\Http\Controllers\ItemController::class, 'create'])->name('create-item');
-    Route::post('store-item', [\App\Http\Controllers\ItemController::class, 'store'])->name('store-item');
+    Route::get('create-list', [\App\Http\Controllers\ToDoListController::class, 'create'])->name('create-list');
+    Route::post('store-list', [\App\Http\Controllers\ToDoListController::class, 'store'])->name('store-list');
+
+    Route::get('create-item/{id}', [\App\Http\Controllers\ItemController::class, 'create'])->name('create-item');
+    Route::post('store-item/{id}', [\App\Http\Controllers\ItemController::class, 'store'])->name('store-item');
     Route::get('edit-item/{id}', [\App\Http\Controllers\ItemController::class, 'edit'])->name('edit-item');
     Route::put('update-item/{id}', [\App\Http\Controllers\ItemController::class, 'update'])->name('update-item');
     Route::get('delete-items-image/{id}', [\App\Http\Controllers\ItemController::class, 'delete'])->name('delete-items-image');

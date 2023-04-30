@@ -15,4 +15,7 @@ class Item extends Model
     public function getTags() {
         return $this->hasMany(Tag::class, 'item_id');
     }
+    public function getItem() {
+        return $this->belongsTo(ToDoList::class, 'to_do_list_id');
+    }
 }

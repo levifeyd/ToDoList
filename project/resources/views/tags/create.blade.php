@@ -1,5 +1,5 @@
 <x-app-layout>
-    <h1 style="text-align: center; font-size: large; margin-top: 10px">Пожалуйста заполните поле для создания тега списка в приложении</h1>
+    <h1 style="text-align: center; font-size: large; margin-top: 10px">Пожалуйста заполните поле для создания тега пункта в списке в приложении</h1>
     <div class="container mt-18">
         <div class="row">
             <div class="col-md-6">

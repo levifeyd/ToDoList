@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Tag;
+use App\Models\ToDoList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -16,17 +17,22 @@ class ItemController extends Controller
             'items'=>$items,
         ]);
     }
-    public function create() {
-        return view('items.create');
+    public function create($id) {
+        $list = ToDoList::query()->findOrFail($id);
+        return view('items.create')->with(['list'=>$list]);
     }
 
-    public function store(Request $request) {
+    public function store($id, Request $request) {
         $request->validate([
             "name"=>'required|string|max:255'
         ]);
-        $input = $request->all();
-        Item::query()->create($input);
-        return response('ok',200);
+        $item = ToDoList::query()->findOrFail($id);
+        DB::table('items')->insert([
+            'name' => $request->get('name'),
+            "image"=>null,
+            "to_do_list_id"=>$id
+        ]);
+        return redirect()->back()->with('status','Новый пункт создан!');
     }
 
     public function edit($id) {
@@ -71,18 +77,18 @@ class ItemController extends Controller
         Item::query()->where('id', $id)->update(['image'=> null]);
         return redirect()->route('dashboard')->with('status','Картинка удалена!');
     }
+    public function createTag($id) {
+        $item = Item::query()->findOrFail($id);
+        return view('tags.create')->with(['item'=>$item]);
+    }
     public function storeTag($id, Request $request) {
         $request->validate([
             "name"=>'required|string|max:255'
         ]);
-        $item= Item::query()->findOrFail($id);
+        $item = Item::query()->findOrFail($id);
         $input = ["name"=>$request->get('name'), 'item_id'=>$item->id];
         $tag = Tag::query()->create($input);
         DB::table('items_tags')->insert(['item_id' => $item->id, 'tag_id' => $tag->id]);
         return redirect()->back()->with('status','Добавлен новый тег для списка !');
-    }
-    public function createTag($id) {
-        $item = Item::query()->findOrFail($id);
-        return view('tags.create')->with(['item'=>$item]);
     }
 }

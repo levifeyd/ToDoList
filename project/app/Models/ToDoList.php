@@ -11,4 +11,7 @@ class ToDoList extends Model
         'name',
     ];
     public $timestamps = false;
+    public function getItems() {
+        return $this->hasMany(Item::class, 'to_do_list_id');
+    }
 }
