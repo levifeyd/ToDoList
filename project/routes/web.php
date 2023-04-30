@@ -29,12 +29,15 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('dashboard', [\App\Http\Controllers\ItemController::class, 'index'])->name('dashboard');
-    Route::get('show-item/{id}', [\App\Http\Controllers\ItemController::class, 'show'])->name('show-item');
+//    Route::get('show-item/{id}', [\App\Http\Controllers\ItemController::class, 'show'])->name('show-item');
     Route::get('create-item', [\App\Http\Controllers\ItemController::class, 'create'])->name('create-item');
     Route::post('store-item', [\App\Http\Controllers\ItemController::class, 'store'])->name('store-item');
     Route::get('edit-item/{id}', [\App\Http\Controllers\ItemController::class, 'edit'])->name('edit-item');
     Route::put('update-item/{id}', [\App\Http\Controllers\ItemController::class, 'update'])->name('update-item');
     Route::get('delete-items-image/{id}', [\App\Http\Controllers\ItemController::class, 'delete'])->name('delete-items-image');
+
+    Route::get('create-tag{id}', [\App\Http\Controllers\ItemController::class, 'createTag'])->name('create-tag');
+    Route::post('store-tag{id}', [\App\Http\Controllers\ItemController::class, 'storeTag'])->name('store-tag');
 
 });
 require __DIR__.'/auth.php';

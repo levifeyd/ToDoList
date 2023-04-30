@@ -19,16 +19,23 @@
                             <div class="col-md-12">
                                 <div class="card mb-4">
                                     <h8 class="card-header">Название списка: {{ $item->name }}</h8>
-                                    @if(isset($item->getTag))
-                                        <h8 class="card-header">Теги: {{ $item->getTag->name }}</h8>
+                                    <?php $i = 0; ?>
+                                    @if(count($item->getTags))
+                                        <h8 class="card-header">Теги:
+                                        @foreach($item->getTags as $tag)
+                                                <br>{{ ++$i.". ".$tag->name}}
+                                        @endforeach
                                     @endif
                                     @if(isset($item->image))
-                                    <div style="margin-left: 20px">
+                                    <div class="card-body">
                                         <a>Картинка списка : </a>
                                         <img src="/storage/images/{{$item->image}}" width="150" height="150">
                                     </div>
                                      @endif
-                                    @if(Auth::user()->hasRole('editor'))
+                                    <div class="card-body">
+                                        <a href="{{ route('create-tag', $item->id) }}" class="btn btn-success">Добавить новый тег для спсика</a>
+                                    </div>
+                                        @if(Auth::user()->hasRole('editor'))
                                     <div class="card-body">
                                         <a href="{{route('edit-item', $item->id)}}" class="btn btn-primary">Редактировать список</a>
                                     </div>

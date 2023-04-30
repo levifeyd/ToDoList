@@ -12,13 +12,15 @@ class ItemController extends Controller
 {
     public function index() {
         $items = Item::all();
+//        $tags = Tag::all();
         return view('dashboard',[
             'items'=>$items,
+//            'tag' =>$tags
         ]);
     }
     public function create() {
-        $tags = Tag::all();
-        return view('items.create')->with(['tags'=>$tags]);
+//        $tags = Tag::all();
+        return view('items.create');
     }
 
     public function store(Request $request) {
@@ -29,24 +31,24 @@ class ItemController extends Controller
         Item::query()->create($input);
         return response('ok',200);
     }
-    public function show($id)
-    {
-        $item = Item::query()->findOrFail($id);
-        $tagsIds = DB::table('items_tags')->where('item_id', $id)
-            ->pluck('tag_id')->toArray();
-        $tags = Tag::query()->whereIn('id', $tagsIds)->get();
-        return view('items.show',[
-            'item'=>$item,
-            'tags'=>$tags
-        ]);
-    }
+//    public function show($id)
+//    {
+//        $item = Item::query()->findOrFail($id);
+//        $tagsIds = DB::table('items_tags')->where('item_id', $id)
+//            ->pluck('tag_id')->toArray();
+//        $tags = Tag::query()->whereIn('id', $tagsIds)->get();
+//        return view('items.show',[
+//            'item'=>$item,
+//            'tags'=>$tags
+//        ]);
+//    }
 
     public function edit($id) {
         $item = Item::query()->findOrFail($id);
-        $tags = Tag::all();
+//        $tags = Tag::all();
         return view("items.edit",[
             "item"=>$item,
-            "tags"=>$tags
+//            "tags"=>$tags
         ]);
     }
     public function update($id, Request $request) {
@@ -84,5 +86,19 @@ class ItemController extends Controller
         Storage::disk('public')->delete('images'.$item->image);
         Item::query()->where('id', $id)->update(['image'=> null]);
         return redirect()->route('dashboard')->with('status','Картинка удалена!');
+    }
+    public function storeTag($id, Request $request) {
+        $request->validate([
+            "name"=>'required|string|max:255'
+        ]);
+        $item= Item::query()->findOrFail($id);
+        $input = ["name"=>$request->get('name'), 'item_id'=>$item->id];
+        $tag = Tag::query()->create($input);
+        DB::table('items_tags')->insert(['item_id' => $item->id, 'tag_id' => $tag->id]);
+        return redirect()->back()->with('status','Добавлен новый тег для списка !');
+    }
+    public function createTag($id) {
+        $item = Item::query()->findOrFail($id);
+        return view('tags.create')->with(['item'=>$item]);
     }
 }

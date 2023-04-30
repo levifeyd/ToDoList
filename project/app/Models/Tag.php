@@ -9,9 +9,10 @@ class Tag extends Model
 {
     protected $fillable = [
         'name',
+        'item_id',
     ];
     public $timestamps = false;
     public function getItem() {
-        return $this->hasMany(Item::class, 'tag_id');
+        return $this->belongsTo(Tag::class, 'item_id');
     }
 }
