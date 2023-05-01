@@ -22,17 +22,18 @@ class ItemController extends Controller
         return view('items.create')->with(['list'=>$list]);
     }
 
-    public function store($id, Request $request) {
+    public function store(Request $request) {
         $request->validate([
-            "name"=>'required|string|max:255'
+            "name"=>'required|string|max:255',
         ]);
-        $item = ToDoList::query()->findOrFail($id);
+        $item = ToDoList::query()->findOrFail($request->get('id'));
         DB::table('items')->insert([
             'name' => $request->get('name'),
             "image"=>null,
-            "to_do_list_id"=>$id
+            "to_do_list_id"=>$request->get('id'),
         ]);
-        return redirect()->back()->with('status','Новый пункт создан!');
+//        return redirect()->back()->with('status','Новый пункт создан!');
+        return response('ok',200);
     }
 
     public function edit($id) {

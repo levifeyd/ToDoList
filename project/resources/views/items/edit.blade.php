@@ -22,7 +22,7 @@
                     @method('PUT')
                     @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail">Введите название книги</label>
+                        <label for="exampleInputEmail">Введите название пункта</label>
                         <input name="name" type="text" class="form-control" id="name" placeholder="{{$item->name}}">
                     </div>
                     <input name="image" type="file" id="image" class="w-full h-12" placeholder="Пожалуйста загрузите картинку для списка" />

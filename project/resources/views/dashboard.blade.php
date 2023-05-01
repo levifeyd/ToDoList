@@ -21,6 +21,12 @@
                                     <h8 class="card-header">Название списка: {{$list->name}}</h8>
                                     <?php $i = 0; ?>
                                     @if(count($list->getItems))
+{{--                                        <form>--}}
+{{--                                            @csrf--}}
+{{--                                            <label for="item">Найти элемент в списке</label><br>--}}
+{{--                                            <input name="itemform" type="text" id="item" class="w-full h-12 ml-2" placeholder="Введите название списка" style="width: 220px"/>--}}
+{{--                                            <button type="button" id="dateFilter" class="btn btn-primary ml-2" style="background-color: blueviolet">Показать список</button>--}}
+{{--                                        </form><br>--}}
                                         <h8 class="card-header">Пункты списка:</h8>
                                         @foreach($list->getItems as $item)
                                             <h8 class="card-header">
@@ -46,7 +52,7 @@
                                             </div>
                                             @if(Auth::user()->hasRole('editor'))
                                                 <div class="card-body">
-                                                    <a href="{{route('edit-item', $item->id)}}" class="btn btn-primary">Редактировать список</a>
+                                                    <a href="{{route('edit-item', $item->id)}}" class="btn btn-primary">Редактировать пункт списка</a>
                                                 </div>
                                             @endif
                                         @endforeach
@@ -63,3 +69,8 @@
         </div>
     @endforeach
 </x-app-layout>
+<script>
+    const el = document.getElementById('el');
+    let el = document.getEl
+    el.scrollIntoView({behavior: "smooth"});
+</script>

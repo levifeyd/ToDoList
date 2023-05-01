@@ -17,35 +17,37 @@
                         </ul>
                     </div>
                 @endif
-                <form method="post" action="{{ route('store-item', $list->id) }}">
+                <form>
                     @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail">Введите название пункта</label>
+                        <label for="name">Введите название пункта</label>
                         <input name="name" type="text" class="form-control" id="name">
+                        <input type="hidden" value="{{$list->id}}" name="id">
                     </div>
-                    <button type="submit" id="send_form_item" class="btn btn-primary mt-4" style="background-color: green">Отправить</button>
+                    <button type="button" id="send_form_item" class="btn btn-primary mt-4" style="background-color: green">Отправить</button>
                 </form>
             </div>
         </div>
     </div>
 </x-app-layout>
-{{--<script>--}}
-{{--    $('#send_form_item').on("click", function () {--}}
-{{--        let name = $('#name').val();--}}
-{{--        let id = {{$list->id}};--}}
-{{--        let url = 'store-item';--}}
-{{--        $.ajax({--}}
-{{--            url: url,--}}
-{{--            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},--}}
-{{--            method: 'post',--}}
-{{--            data: {'name': name,'id': id},--}}
-{{--            success: function(data){--}}
-{{--                alert("Ваша список добавлен!");--}}
-{{--            },--}}
-{{--            error: function (data) {--}}
-{{--                alert('Произошла ошибка! Проверьте корректное название спика.');--}}
-{{--            }--}}
-{{--        });--}}
-{{--    });--}}
-{{--</script>--}}
+<script>
+    $('#send_form_item').on("click", function () {
+        let name = $('#name').val();
+        let id = {{$list->id}};
+        let url = 'store-item';
+        $.ajax({
+            url: url,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            method: 'post',
+            data: {'name': name,'id': id},
+            // data: formData,
+            success: function(data){
+                alert("Ваша пункт добавлен!");
+            },
+            error: function (data) {
+                alert('Произошла ошибка! Проверьте корректное название пункта.');
+            }
+        });
+    });
+</script>
 
