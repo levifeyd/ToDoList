@@ -85,7 +85,7 @@ class ItemController extends Controller
         $item = Item::query()->findOrFail($id);
         Storage::disk('public')->delete('images'.$item->image);
         Item::query()->where('id', $id)->update(['image'=> null]);
-        return redirect()->route('dashboard')->with('status','Картинка удалена!');
+        return redirect()->back()->with('status','Картинка удалена!');
     }
     public function createTag($id) {
         $item = Item::query()->findOrFail($id);
