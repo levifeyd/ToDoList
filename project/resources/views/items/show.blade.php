@@ -72,7 +72,6 @@
 <script>
     $('#search_button').on("click", function () {
         let id = $('#name_item').val();
-        console.log(id);
         const el = document.getElementById(id);
         el.scrollIntoView();
         el.scrollIntoView(false);
