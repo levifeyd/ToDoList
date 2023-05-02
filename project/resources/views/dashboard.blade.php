@@ -38,13 +38,13 @@
                                                 <br>{{ ++$i.". ".$item->name}}
                                             </h8>
                                             @if(count($item->getTags))
-                                            <h8 class="text ml-2">Теги пункта:</h8>
+                                            <div class="py-2 ml-4">
+                                            <p>Теги пункта:</p>
                                                 <?php $j = 0; ?>
                                                 @foreach($item->getTags as $tags)
-                                                    <h8 class="text ml-2">
-                                                    <br>{{ ++$j.". ".$tags->name}}
-                                                    </h8>
+                                                    <p>{{ ++$j.". ".$tags->name}}</p>
                                                 @endforeach
+                                            </div>
                                             @endif
                                             @if(isset($item->image))
                                                 <div class="card-body">
@@ -54,12 +54,10 @@
                                             @endif
                                             <div class="card-body">
                                                 <a href="{{ route('create-tag', $item->id) }}" class="btn btn-success">Добавить новый тег для пункта</a>
-                                            </div>
                                             @if(Auth::user()->hasRole('editor'))
-                                                <div class="card-body">
-                                                    <a href="{{route('edit-item', $item->id)}}" class="btn btn-primary">Редактировать пункт списка</a>
-                                                </div>
-                                            @endif
+                                                <a href="{{route('edit-item', $item->id)}}" class="btn btn-primary">Редактировать пункт списка</a>
+                                                @endif
+                                            </div>
                                         @endforeach
                                     @endif
                                     <div class="card-body">
