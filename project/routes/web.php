@@ -44,5 +44,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('filter', [\App\Http\Controllers\ToDoListController::class, 'filterTag'])->name('filter');
 
+    Route::get('roles',[\App\Http\Controllers\RoleController::class, 'index'])->name('roles');
+    Route::get('roles-edit/{id}',[\App\Http\Controllers\RoleController::class, 'edit'])->name('roles-edit');
 });
 require __DIR__.'/auth.php';
