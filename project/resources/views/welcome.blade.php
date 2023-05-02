@@ -23,7 +23,6 @@
     <div class="welcome" style="text-align: center">
         <h2>Добро пожаловать в приложение ToDoList</h2>
         <h3>Пожалуйста пройдите регистрацию или авторизацию</h3>
-        <img src="/storage/images/istockphoto-1092571024-612x612.jpg" width="400">
     </div>
 </div>
 </body>
