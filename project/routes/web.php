@@ -45,7 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::post('store-tag{id}', [\App\Http\Controllers\ItemController::class, 'storeTag'])->name('store-tag');
 
     Route::post('filter', [\App\Http\Controllers\ItemController::class, 'filterTag'])->name('filter');
-//    Route::get('filter', [\App\Http\Controllers\ToDoListController::class, 'filterTag'])->name('filter');
 
     Route::get('roles',[\App\Http\Controllers\RoleController::class, 'index'])->name('roles');
     Route::get('roles-edit/{id}',[\App\Http\Controllers\RoleController::class, 'edit'])->name('roles-edit');

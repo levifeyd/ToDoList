@@ -23,7 +23,7 @@
                         <label for="exampleInputEmail">Введите название тега</label>
                         <input name="name" type="text" class="form-control" id="name">
                     </div>
-                    <button type="submit" id="send_form_item" class="btn btn-primary mt-4" style="background-color: green">Отправить</button>
+                    <button type="submit" id="send_form_item" class="btn btn-primary" style="background-color: green">Отправить</button>
                 </form>
             </div>
         </div>

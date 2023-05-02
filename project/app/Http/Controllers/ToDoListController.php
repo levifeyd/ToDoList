@@ -11,7 +11,6 @@ class ToDoListController extends Controller
 {
     public function index() {
         $lists = ToDoList::all();
-//        dd($lists);
         return view('dashboard',[
             'lists'=>$lists,
         ]);

@@ -25,7 +25,6 @@ class ItemController extends Controller
     public function show($id) {
         $list = ToDoList::query()->findOrFail($id);
         $items = $list->getItems;
-//        dd($items);
         return view('items.show')->with([
             'items'=>$items,
             'list'=>$list

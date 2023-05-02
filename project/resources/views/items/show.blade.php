@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-{{--            {{ __('Пункты спсика "'.$list->name."\"") }}--}}
             {{ __('Пункты спсика') }}
         </h2>
     </x-slot>
@@ -35,8 +34,8 @@
                                     <?php $i = 0; ?>
                                     @foreach($items as $item)
                                         <li id="{{$item->name}}">
-                                        <h8 class="card-header">
-                                            <br>{{ ++$i.". ".$item->name}}
+                                        <h8 class="py-2 ml-4">
+                                            {{ ++$i.". ".$item->name}}
                                         </h8>
                                         @if(count($item->getTags))
                                         <div class="py-2 ml-4">
@@ -53,6 +52,7 @@
                                                 <img src="/storage/images/{{$item->image}}" width="150" height="150">
                                             </div>
                                         @endif
+                                        </li>
                                         <div class="card-body">
                                             <a href="{{ route('create-tag', $item->id) }}" class="btn btn-success">Добавить новый тег для пункта</a>
                                         @if(Auth::user()->hasRole('editor'))
