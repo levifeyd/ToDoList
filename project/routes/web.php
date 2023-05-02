@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::post('store-list', [\App\Http\Controllers\ToDoListController::class, 'store'])->name('store-list');
 
     Route::get('create-item/{id}', [\App\Http\Controllers\ItemController::class, 'create'])->name('create-item');
+    Route::get('show-item/{id}', [\App\Http\Controllers\ItemController::class, 'show'])->name('show-item');
+
     Route::post('create-item/store-item', [\App\Http\Controllers\ItemController::class, 'store'])->name('store-item');
     Route::get('edit-item/{id}', [\App\Http\Controllers\ItemController::class, 'edit'])->name('edit-item');
     Route::put('update-item/{id}', [\App\Http\Controllers\ItemController::class, 'update'])->name('update-item');
@@ -42,7 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::get('create-tag{id}', [\App\Http\Controllers\ItemController::class, 'createTag'])->name('create-tag');
     Route::post('store-tag{id}', [\App\Http\Controllers\ItemController::class, 'storeTag'])->name('store-tag');
 
-    Route::post('filter', [\App\Http\Controllers\ToDoListController::class, 'filterTag'])->name('filter');
+    Route::post('filter', [\App\Http\Controllers\ItemController::class, 'filterTag'])->name('filter');
+//    Route::get('filter', [\App\Http\Controllers\ToDoListController::class, 'filterTag'])->name('filter');
 
     Route::get('roles',[\App\Http\Controllers\RoleController::class, 'index'])->name('roles');
     Route::get('roles-edit/{id}',[\App\Http\Controllers\RoleController::class, 'edit'])->name('roles-edit');

@@ -28,14 +28,4 @@ class ToDoListController extends Controller
         ToDoList::query()->create($input);
         return response('ok',200);
     }
-    public function filterTag(Request $request) {
-        $tagName = $request->get('name_tag');
-        $tags = Tag::query()->where('name', $tagName)->pluck('item_id');
-        $items = Item::query()->whereIn('id', $tags)->pluck('to_do_list_id');
-        $lists = ToDoList::query()->whereIn('id', $items)->get();
-        return view('dashboard',[
-            'lists'=>$lists,
-            'filtered_tags'=>$tags
-        ]);
-    }
 }

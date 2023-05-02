@@ -22,6 +22,16 @@ class ItemController extends Controller
         return view('items.create')->with(['list'=>$list]);
     }
 
+    public function show($id) {
+        $list = ToDoList::query()->findOrFail($id);
+        $items = $list->getItems;
+//        dd($items);
+        return view('items.show')->with([
+            'items'=>$items,
+            'list'=>$list
+        ]);
+    }
+
     public function store(Request $request) {
         $request->validate([
             "name"=>'required|string|max:255',
@@ -91,5 +101,16 @@ class ItemController extends Controller
         $tag = Tag::query()->create($input);
         DB::table('items_tags')->insert(['item_id' => $item->id, 'tag_id' => $tag->id]);
         return redirect()->back()->with('status','Добавлен новый тег для списка !');
+    }
+    public function filterTag(Request $request) {
+        $request->validate([
+            "name_tag"=>'required'
+        ]);
+        $tagName = $request->get('name_tag');
+        $tags = Tag::query()->where('name', $tagName)->pluck('item_id');
+        $items = Item::query()->whereIn('id', $tags)->get();
+        return view('items.show',[
+            'items'=>$items,
+        ]);
     }
 }
