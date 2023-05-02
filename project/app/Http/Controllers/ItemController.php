@@ -98,7 +98,6 @@ class ItemController extends Controller
         $item = Item::query()->findOrFail($id);
         $input = ["name"=>$request->get('name'), 'item_id'=>$item->id];
         $tag = Tag::query()->create($input);
-        DB::table('items_tags')->insert(['item_id' => $item->id, 'tag_id' => $tag->id]);
         return redirect()->back()->with('status','Добавлен новый тег для списка !');
     }
     public function filterTag(Request $request) {

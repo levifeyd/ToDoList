@@ -12,7 +12,7 @@
     <div class="py-2" style="margin-left: 160px">
         <form method="post" action="{{ route('filter') }}">
             @csrf
-            <label for="name_tag">Найти теги в пунктах списка</label>
+            <label for="name_tag">Фильтр тегов в пунктах списка</label>
             <div class="py-2">
             <input name="name_tag" type="text" id="name_tag" class="w-full h-12" placeholder="Введите название тега в списке" style="width: 270px"/><br>
             <button type="submit" id="filter_tag" class="btn btn-primary mt-2" style="background-color: blueviolet">Отфильтровать</button>
