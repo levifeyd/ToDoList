@@ -11,14 +11,17 @@
         </div>
     @endif
     <div class="py-2" style="margin-left: 160px">
-            <form method="post" action="{{ route('filter') }}">
-                @csrf
-                <label for="name_tag">Найти теги в пунктах списка</label>
-                <div class="py-2">
-                <input name="name_tag" type="text" id="name_tag" class="w-full h-12" placeholder="Введите название тега в списке" style="width: 270px"/><br>
-                <button type="submit" id="filter_tag" class="btn btn-primary mt-2" style="background-color: blueviolet">Отфильтровать</button>
-                </div>
-            </form>
+        <form method="post" action="{{ route('filter') }}">
+            @csrf
+            <label for="name_tag">Найти теги в пунктах списка</label>
+            <div class="py-2">
+            <input name="name_tag" type="text" id="name_tag" class="w-full h-12" placeholder="Введите название тега в списке" style="width: 270px"/><br>
+            <button type="submit" id="filter_tag" class="btn btn-primary mt-2" style="background-color: blueviolet">Отфильтровать</button>
+            </div>
+        </form>
+        <label for="name_tag">Найти пункт в списке</label><br>
+        <input name="name_item" type="text" id="name_item" class="w-full h-12" placeholder="Введите название пункта в списке" style="width: 270px"/><br>
+        <button type="button" id="search_button" class="btn btn-primary mt-2" style="background-color: blueviolet">Поиск</button>
     </div>
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -31,6 +34,7 @@
                                         <h8 class="card-header">Пункты списка:</h8>
                                     <?php $i = 0; ?>
                                     @foreach($items as $item)
+                                        <li id="{{$item->name}}">
                                         <h8 class="card-header">
                                             <br>{{ ++$i.". ".$item->name}}
                                         </h8>
@@ -65,4 +69,12 @@
         </div>
     </div>
 </x-app-layout>
-
+<script>
+    $('#search_button').on("click", function () {
+        let id = $('#name_item').val();
+        console.log(id);
+        const el = document.getElementById(id);
+        el.scrollIntoView();
+        el.scrollIntoView(false);
+    });
+</script>
