@@ -9,7 +9,18 @@
             {{ session('status') }}
         </div>
     @endif
-    <a href="{{ route('create-list') }}" class="btn btn-success mb-4 mt-6" style="margin-left: 160px">Добавить новый список</a>
+    <div style="margin-left: 160px">
+    <a href="{{ route('create-list') }}" class="btn btn-success mb-4 mt-6">Добавить новый список</a>
+    <form method="post" action="{{ route('filter') }}">
+        @csrf
+        <label for="name_tag">Найти теги в списках</label>
+        <div class="py-2">
+        <input name="name_tag" type="text" id="name_tag" class="w-full h-12" placeholder="Введите название тега в списке" style="width: 270px"/><br>
+        <button type="submit" id="filter_tag" class="btn btn-primary mt-2" style="background-color: blueviolet">Отфильтровать</button>
+        </div>
+    </form>
+    <a href="{{ route('dashboard') }}" class="btn btn-success mb-4 mt-2">Показать все списки</a>
+    </div>
     @foreach($lists as $list)
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -21,12 +32,6 @@
                                     <h8 class="card-header">Название списка: {{$list->name}}</h8>
                                     <?php $i = 0; ?>
                                     @if(count($list->getItems))
-{{--                                        <form>--}}
-{{--                                            @csrf--}}
-{{--                                            <label for="item">Найти элемент в списке</label><br>--}}
-{{--                                            <input name="itemform" type="text" id="item" class="w-full h-12 ml-2" placeholder="Введите название списка" style="width: 220px"/>--}}
-{{--                                            <button type="button" id="dateFilter" class="btn btn-primary ml-2" style="background-color: blueviolet">Показать список</button>--}}
-{{--                                        </form><br>--}}
                                         <h8 class="card-header">Пункты списка:</h8>
                                         @foreach($list->getItems as $item)
                                             <h8 class="card-header">
@@ -43,7 +48,7 @@
                                             @endif
                                             @if(isset($item->image))
                                                 <div class="card-body">
-                                                    <a>Картинка списка : </a>
+                                                    <a>Картинка пункта списка : </a>
                                                     <img src="/storage/images/{{$item->image}}" width="150" height="150">
                                                 </div>
                                             @endif
@@ -69,8 +74,21 @@
         </div>
     @endforeach
 </x-app-layout>
-<script>
-    const el = document.getElementById('el');
-    let el = document.getEl
-    el.scrollIntoView({behavior: "smooth"});
-</script>
+{{--<script>--}}
+{{--    $('#filter_tag').on("click", function () {--}}
+{{--        let name_tag = $('#name_tag').val();--}}
+{{--        let url = 'filter';--}}
+{{--        $.ajax({--}}
+{{--            url: url,--}}
+{{--            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},--}}
+{{--            method: 'post',--}}
+{{--            data: {'name_tag': name_tag},--}}
+{{--            success: function(data){--}}
+{{--                alert(data);--}}
+{{--            },--}}
+{{--            error: function (data) {--}}
+{{--                alert('Произошла ошибка! Проверьте корректное название тега спика.');--}}
+{{--            }--}}
+{{--        });--}}
+{{--    });--}}
+{{--</script>--}}

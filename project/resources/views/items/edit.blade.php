@@ -27,8 +27,10 @@
                     </div>
                     <input name="image" type="file" id="image" class="w-full h-12" placeholder="Пожалуйста загрузите картинку для списка" />
                     <div class="col-md-12 mb-2">
+                        <a href="javascript:imageLink();" id="src_link">
                         <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
                              alt="preview image" style="height: 150px; width: 150px">
+                        </a>
                     </div>
                     <button type="submit" class="btn btn-primary mt-4" style="background-color: green">Отправить</button>
                 </form>
@@ -47,4 +49,10 @@
             reader.readAsDataURL(this.files[0]);
         });
     });
+    function imageLink() {
+        const c = document.getElementById("preview-image-before-upload"); // берем картинку по id
+        const d = c.src; // берем ее src
+        const w = window.open('about:blank','new image'); // открываем окно
+        w.document.write("<img src='" + d + "' alt='from old image' />"); //  вставляем картинку
+    }
 </script>

@@ -25,6 +25,7 @@ class ItemController extends Controller
     public function store(Request $request) {
         $request->validate([
             "name"=>'required|string|max:255',
+            "id"=>'required'
         ]);
         $item = ToDoList::query()->findOrFail($request->get('id'));
         DB::table('items')->insert([
@@ -32,7 +33,6 @@ class ItemController extends Controller
             "image"=>null,
             "to_do_list_id"=>$request->get('id'),
         ]);
-//        return redirect()->back()->with('status','Новый пункт создан!');
         return response('ok',200);
     }
 

@@ -40,7 +40,6 @@
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             method: 'post',
             data: {'name': name,'id': id},
-            // data: formData,
             success: function(data){
                 alert("Ваша пункт добавлен!");
             },

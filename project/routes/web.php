@@ -26,8 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::get('dashboard', [\App\Http\Controllers\ToDoListController::class, 'index'])->name('dashboard');
+
+    Route::get('create-tag{id}', [\App\Http\Controllers\ItemController::class, 'createTag'])->name('create-tag');
 
     Route::get('create-list', [\App\Http\Controllers\ToDoListController::class, 'create'])->name('create-list');
     Route::post('store-list', [\App\Http\Controllers\ToDoListController::class, 'store'])->name('store-list');
@@ -40,6 +41,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('create-tag{id}', [\App\Http\Controllers\ItemController::class, 'createTag'])->name('create-tag');
     Route::post('store-tag{id}', [\App\Http\Controllers\ItemController::class, 'storeTag'])->name('store-tag');
+
+    Route::post('filter', [\App\Http\Controllers\ToDoListController::class, 'filterTag'])->name('filter');
 
 });
 require __DIR__.'/auth.php';
