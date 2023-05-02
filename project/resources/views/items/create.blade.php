@@ -24,7 +24,7 @@
                         <input name="name" type="text" class="form-control" id="name">
                         <input type="hidden" value="{{$list->id}}" name="id">
                     </div>
-                    <button type="button" id="send_form_item" class="btn btn-primary mt-4" style="background-color: green">Отправить</button>
+                    <button type="button" id="send_form_item" class="btn btn-primary" style="background-color: green">Отправить</button>
                 </form>
             </div>
         </div>
